@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { getResponseObject, encryptData } = require('../../util');
+const { getResponseObject, encryptData, writeFile, compareData } = require('../../util');
 const userData = require('./user.json');
 
 class User {
@@ -11,7 +11,6 @@ class User {
         this.name = object.name;
         this.email = object.email;
         this.password = object.password;
-        console.log('User model initialized');
     }
 
     getUser(options = {}) {
@@ -24,23 +23,34 @@ class User {
     }
 
     async saveUser() {
+        try {
+            const encryptedPwd = await encryptData(this.password);
 
-        const encryptedPwd = await encryptData(this.password);
+            userData.push({
+                name: this.name,
+                email: this.email,
+                password: encryptedPwd
+            });
 
-        userData.push({
-            name: this.name,
-            email: this.email,
-            password: encryptedPwd
-        });
+            writeFile('./models/user/user.json', JSON.stringify(userData));
+            return getResponseObject(200, "User saved succesfully");
+        } catch (error) {
+            console.log(error);
+            return getResponseObject(500, "Internal Server Error");
+        }
     }
 
-    signin() {
-        const user = userData.filter(user => this.email === user.email && this.password === user.password);
+    async signin() {
+        const user = userData.filter(user => this.email === user.email);
 
         if (!user || user.length === 0) return getResponseObject(400, "Invalid Credentials");
+        const checkPwd = await compareData(this.password, user[0].password);
+        if (!checkPwd) return getResponseObject(400, "Invalid Credentials");
 
         // Generate an access token
-        const accessToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET);
+        const accessToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+            expiresIn: process.env.JWT_TIMEOUT
+        });
 
         return getResponseObject(200, "Sign in successfull", accessToken);
     }

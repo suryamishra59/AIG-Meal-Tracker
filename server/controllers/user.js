@@ -1,12 +1,12 @@
-const { getResponseObject, getExpressResponse } = require('../util');
+const { getExpressResponse } = require('../util');
 const { User } = require('../models');
+const { response } = require('express');
 
 module.exports = (app) => {
     app.get(process.env.USER_API, (req, res) => {
         const user = new User();
         const response = user.getUser({});
-        const expResp = getExpressResponse(res, response);
-        res.send(expResp);
+        res.send(getExpressResponse(res, response));
     });
 
     app.post(`${process.env.USER_API}/signin`, (req, res) => {
@@ -16,9 +16,9 @@ module.exports = (app) => {
             password: reqBody.password
         });
 
-        const response = user.signin();
-        const expResp = getExpressResponse(res, response);
-        res.send(expResp);
+        user.signin().then(response => {
+            res.send(getExpressResponse(res, response));
+        });
     });
 
     app.post(`${process.env.USER_API}/`, (req, res) => {
@@ -29,8 +29,8 @@ module.exports = (app) => {
             name: reqBody.name
         });
 
-        const response = user.saveUser();
-        const expResp = getExpressResponse(res, response);
-        res.send(expResp);
+        user.saveUser().then(response => {
+            res.send(getExpressResponse(res, response));
+        });
     });
 };
