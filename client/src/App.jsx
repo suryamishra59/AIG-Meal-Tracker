@@ -8,6 +8,7 @@ import { withSnackbar } from 'notistack';
 import { NotFound } from './components';
 import { SignUp, Login, Portal } from './containers';
 import { helloWorld } from './server';
+import { LS_USER_OBJECT_KEY } from './constant';
 
 class App extends React.Component {
     constructor() {
@@ -16,12 +17,15 @@ class App extends React.Component {
         this.state = {
             isAuthenticated: false,
             isMobile: window.matchMedia("(max-width: 768px)").matches,
+            updateContext: this.updateContext,
+            logout: this.logout
         };
 
     }
 
     componentDidMount() {
-        helloWorld().then(() => console.log("Server connected..."));
+        this.setState({ enqueueSnackbar: this.props.enqueueSnackbar }, _ => this.updateContext());
+        // helloWorld().then(() => console.log("Server connected..."));
     }
 
     showNotification(title, body) {
@@ -33,6 +37,19 @@ class App extends React.Component {
             }
         });
     }
+
+    updateContext = _ => {
+        this.setState({
+            isMobile: window.matchMedia("(max-width: 768px)").matches,
+            ...JSON.parse(window.localStorage.getItem(LS_USER_OBJECT_KEY)),
+            isAuthenticated: window.localStorage.getItem(LS_USER_OBJECT_KEY) ? Object.keys(JSON.parse(window.localStorage.getItem(LS_USER_OBJECT_KEY))).length > 1 : false,
+        });
+    };
+
+    logout = _ => {
+        localStorage.clear();
+        this.updateContext();
+    };
 
     render() {
 
@@ -87,7 +104,7 @@ class App extends React.Component {
                     <Switch>
                         <Route path="/login" render={(props) => <UserProvider value={this.state}> <Login {...props} /> </UserProvider>} />
                         <Route exact path="/signup" render={(props) => <UserProvider value={this.state}> <SignUp {...props} /> </UserProvider>} />
-                        <Route path="/portal" render={(props) => <UserProvider value={this.state}> <Portal {...props} /> </UserProvider>} />
+                        <Route path="/portal" render={(props) => <UserProvider value={this.state}>{this.state.isAuthenticated ? <Portal {...props} /> : <Redirect to={'/login'} />}</UserProvider>} />
                         <Route path="/" render={_ => <Redirect to={this.state.isAuthenticated ? '/portal' : '/login'} />} />
                         <Route component={NotFound} />
                     </Switch>

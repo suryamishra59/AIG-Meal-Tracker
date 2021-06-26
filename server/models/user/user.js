@@ -57,7 +57,7 @@ class User {
             expiresIn: process.env.JWT_TIMEOUT
         });
 
-        return getResponseObject(200, "Sign in successfull", accessToken);
+        return getResponseObject(200, "Sign in successfull", { accessToken: accessToken, uid: user[0].id, name: user[0].name });
     }
 }
 
