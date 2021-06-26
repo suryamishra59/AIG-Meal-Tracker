@@ -1,15 +1,15 @@
 const { getExpressResponse } = require('../util');
 const { User } = require('../models');
-const { response } = require('express');
+const { authenticateJWT } = require('../auth');
 
 module.exports = (app) => {
-    app.get(process.env.USER_API, (req, res) => {
+    app.get(process.env.USER_API, authenticateJWT, (req, res) => {
         const user = new User();
         const response = user.getUser({});
         res.send(getExpressResponse(res, response));
     });
 
-    app.post(`${process.env.USER_API}/signin`, (req, res) => {
+    app.post(process.env.USER_SIGNIN_API, (req, res) => {
         const reqBody = req.body;
         const user = new User({
             email: reqBody.email,
@@ -21,7 +21,7 @@ module.exports = (app) => {
         });
     });
 
-    app.post(`${process.env.USER_API}/`, (req, res) => {
+    app.post(process.env.USER_API, (req, res) => {
         const reqBody = req.body;
         const user = new User({
             email: reqBody.email,
