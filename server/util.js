@@ -1,4 +1,5 @@
 const fs = require('fs/promises');
+const bcrypt = require('bcrypt');
 
 module.exports = {
 
@@ -20,6 +21,13 @@ module.exports = {
         return await fs.writeFile(filePath, data);
     },
 
+    encryptData: async (text) => {
+        const salt = await bcrypt.genSalt(10);
+        return await bcrypt.hash(text, salt);
+    },
 
+    compareData: async (text, hash) => {
+        return await bcrypt.compare(text, hash);
+    }
 
 };

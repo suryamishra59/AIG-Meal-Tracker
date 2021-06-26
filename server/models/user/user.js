@@ -1,5 +1,5 @@
 const jwt = require('jsonwebtoken');
-const { getResponseObject } = require('../../util');
+const { getResponseObject, encryptData } = require('../../util');
 const userData = require('./user.json');
 
 class User {
@@ -18,15 +18,20 @@ class User {
         const users = userData.map(user => { delete user.password; return user; });
         if (!options.where) return getResponseObject(200, "User Fetched successfully", users);
 
-        const resp = users.filter(user => {
-            return Object.keys(options.where).every(condition => user[condition] === options.where[condition]);
-        });
+        const resp = users.filter(user => Object.keys(options.where).every(key => user[key] === options.where[key]));
 
         return getResponseObject(200, "User Fetched successfully", resp);
     }
 
-    saveUser(payload) {
-        
+    async saveUser() {
+
+        const encryptedPwd = await encryptData(this.password);
+
+        userData.push({
+            name: this.name,
+            email: this.email,
+            password: encryptedPwd
+        });
     }
 
     signin() {
