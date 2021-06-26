@@ -1,4 +1,5 @@
 {
     "USER_API": "/user",
-    "USER_SIGNIN_API": "/user/signin"
+    "USER_SIGNIN_API": "/user/signin",
+    "MEAL_API": "/meal"
 }

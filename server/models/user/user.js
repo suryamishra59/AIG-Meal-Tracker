@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { getResponseObject, encryptData, writeFile, compareData } = require('../../util');
-const userData = require('./user.json');
+const userData = require('./user.json') || [];
+const { v4: uuid } = require('uuid');
 
 class User {
     name;
@@ -24,12 +25,16 @@ class User {
 
     async saveUser() {
         try {
+            const user = userData.filter(user => this.email === user.email);
+
+            if (user && user.length > 0) return getResponseObject(400, "This email is already taken. Please choose a diffrent one");
             const encryptedPwd = await encryptData(this.password);
 
             userData.push({
                 name: this.name,
                 email: this.email,
-                password: encryptedPwd
+                password: encryptedPwd,
+                id: uuid()
             });
 
             writeFile('./models/user/user.json', JSON.stringify(userData));
@@ -48,7 +53,7 @@ class User {
         if (!checkPwd) return getResponseObject(400, "Invalid Credentials");
 
         // Generate an access token
-        const accessToken = jwt.sign({ email: user.email }, process.env.JWT_SECRET, {
+        const accessToken = jwt.sign({ email: this.email, uid: user[0].id }, process.env.JWT_SECRET, {
             expiresIn: process.env.JWT_TIMEOUT
         });
 
