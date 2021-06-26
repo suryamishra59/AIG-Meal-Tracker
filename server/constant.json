@@ -1,3 +1,4 @@
 {
-    "PORT": 8080
+    "USER_API": "/user",
+    "USER_SIGNIN_API": "/user/signin"
 }
