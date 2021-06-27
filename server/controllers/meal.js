@@ -30,7 +30,7 @@ module.exports = (app) => {
 
     app.delete(process.env.MEAL_BY_ID_API, authenticateJWT, (req, res) => {
         const meal = new Meal();
-        meal.deleteMeal(req.params.id).then(resp => {
+        meal.deleteMeal(req, req.params.id).then(resp => {
             res.send(getExpressResponse(res, resp));
         });
     });

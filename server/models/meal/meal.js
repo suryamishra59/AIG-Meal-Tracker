@@ -25,7 +25,12 @@ class Meal {
         });
 
         writeFile('./models/meal/meal.json', JSON.stringify(mealData));
-        return getResponseObject(200, "Meal saved succesfully");
+
+        const filteredMeals = JSON.parse(JSON.stringify(mealData.filter(m => m.uid === user.uid)));
+        filteredMeals.forEach(meal => meal.onlyDate = meal.date.split('T')[0]);
+        const resp = _.groupBy(filteredMeals, "onlyDate");
+
+        return getResponseObject(200, "Meal saved succesfully", resp);
     }
 
     async getMeal(req) {
@@ -53,19 +58,22 @@ class Meal {
         }
 
         await writeFile('./models/meal/meal.json', JSON.stringify(mealData));
-        const filteredMeals = JSON.parse(JSON.stringify(mealData));
+        const filteredMeals = JSON.parse(JSON.stringify(mealData.filter(m => m.uid === user.uid)));
         filteredMeals.forEach(meal => meal.onlyDate = meal.date.split('T')[0]);
         const resp = _.groupBy(filteredMeals, "onlyDate");
         return getResponseObject(200, "Meal updated succesfully", resp);
     }
 
-    async deleteMeal(id) {
+    async deleteMeal(req, id) {
+        const user = req.user;
         const meals = require('./meal.json');
         let filterMeals = meals.filter(meal => meal.id !== id);
         await writeFile('./models/meal/meal.json', JSON.stringify(filterMeals));
 
-        filterMeals.forEach(meal => meal.onlyDate = meal.date.split('T')[0]);
-        const resp = _.groupBy(filterMeals, "onlyDate");
+        const filteredMeals = JSON.parse(JSON.stringify(filterMeals.filter(m => m.uid === user.uid)));
+
+        filteredMeals.forEach(meal => meal.onlyDate = meal.date.split('T')[0]);
+        const resp = _.groupBy(filteredMeals, "onlyDate");
 
         return getResponseObject(200, "Meal deleted succesfully", resp);
     }

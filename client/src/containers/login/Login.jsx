@@ -52,7 +52,7 @@ function Login(props) {
                             <Divider style={{ margin: '15px 0' }} />
                             <form onSubmit={login}>
                                 <div className="flex flex-c-flow full-width flex-v-centered">
-                                    <InputBase value={state.emailID} onChange={e => setstate({ ...state, emailID: e.target.value })} placeholder="Email" name="email" required type="email" className="full-width m-top-1 login-fields" />
+                                    <InputBase value={state.emailID} onChange={e => setstate({ ...state, emailID: e.target.value })} placeholder="Username" name="email" required className="full-width m-top-1 login-fields" />
                                     <InputBase value={state.password} onChange={e => setstate({ ...state, password: e.target.value })} placeholder="Password" name="password" required type="password" className="full-width m-top-1 login-fields" />
 
                                     <ButtonBase type="submit" focusRipple disabled={!state.emailID || !state.password || state.isLoading} className="btn-login">

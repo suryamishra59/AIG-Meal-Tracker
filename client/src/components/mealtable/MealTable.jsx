@@ -80,7 +80,7 @@ const MealTableRow = (props) => {
                     </IconButton>
                 </TableCell>
                 <TableCell align="center">
-                    <IconButton size="small" color="primary" onClick={e => props.editMealByID(props.row.id)}>
+                    <IconButton size="small" color="primary" onClick={e => props.deleteMealByID(props.row.id)}>
                         <i className="material-icons">delete</i>
                     </IconButton>
                 </TableCell>

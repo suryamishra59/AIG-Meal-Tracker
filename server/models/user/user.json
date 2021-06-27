@@ -1,8 +1,1 @@
-[
-    {
-        "name": "Kill Me",
-        "email": "kill.me@gmail.com",
-        "password": "$2b$10$j2mUE2yh03KkN/r7/FgK2.xBECTE3I7rUW/hYWgU.3kmLhOk4aYBS",
-        "id": "9fbee1b4-4649-4b6a-a047-dfbf24744b59"
-    }
-]
+[{"name":"Kill Me","email":"kill.me@gmail.com","password":"$2b$10$j2mUE2yh03KkN/r7/FgK2.xBECTE3I7rUW/hYWgU.3kmLhOk4aYBS","id":"9fbee1b4-4649-4b6a-a047-dfbf24744b59"},{"name":"Surya","email":"suryamishra@gmail.com","password":"$2b$10$/JP.IkBhJh3BUkFgUdgj5ekmrFVZqXbkvnncgXzqCiEIFqQpYpb92","id":"8faa173f-34bb-4ddf-8e93-8b22e2030b87"},{"name":"CD","email":"cdsmishra","password":"$2b$10$idSA3Wms9OdHz9fYPhS3q.wdbV0FOuOFuEUpdtR0k3TiCbC37TkDi","id":"d61ff090-9f10-4bc2-89a7-1facc30284ec"},{"name":"CDM","email":"cds@gmail.com","password":"$2b$10$.JxfbbVmDnznL9qaLYX.Wec.tgjtORYuf3gWgVO.zN2B1Jl6.LTFq","id":"f4079fed-71ab-4aab-8814-edb29c73159f"}]

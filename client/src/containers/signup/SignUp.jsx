@@ -52,8 +52,8 @@ function SignUp(props) {
                                 <InputBase value={state.name} onChange={e => setstate({ ...state, name: e.target.value })} placeholder="First Name" name="name" required type="text" id="signup_name" className="m-top-1 register-fields" />
                             </div>
                             <div className="flex flex-h-centered flex-c-flow" style={{ margin: '0.5em 0' }}>
-                                <label style={{ fontSize: '20px', fontWeight: 400 }} htmlFor="signup_email">Email</label>
-                                <InputBase value={state.emailID} onChange={e => setstate({ ...state, emailID: e.target.value })} placeholder="Email" name="email" required type="email" autoFocus id="signup_email" className="m-top-1 register-fields" />
+                                <label style={{ fontSize: '20px', fontWeight: 400 }} htmlFor="signup_email">Username</label>
+                                <InputBase value={state.emailID} onChange={e => setstate({ ...state, emailID: e.target.value })} placeholder="Username" name="email" required type="email" autoFocus id="signup_email" className="m-top-1 register-fields" />
                             </div>
                             <div className="flex flex-h-centered flex-c-flow" style={{ margin: '0.5em 0' }}>
                                 <label style={{ fontSize: '20px', fontWeight: 400 }} htmlFor="signup_pwd">Password</label>

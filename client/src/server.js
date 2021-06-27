@@ -57,6 +57,20 @@ export const getMeals = async () => {
     return await invokeAPI(request);;
 };
 
+export const createMeal = async (payload) => {
+    const request = {
+        method: 'POST',
+        url: API_MEAL,
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${localStorage.getItem("token")}`
+        },
+        data: payload
+    };
+
+    return await invokeAPI(request);;
+};
+
 
 export const deleteMeal = async (id) => {
     const request = {
