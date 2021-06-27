@@ -15,7 +15,11 @@
         width: 70%;
 
         &.healthy-acc {
-            background-color: rgb(193, 255, 193);
+            background-color: rgb(218, 255, 218);
+
+            * {
+                color: rgb(1, 73, 1) !important;
+            }
         }
     }
 }

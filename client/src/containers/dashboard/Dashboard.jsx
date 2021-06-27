@@ -1,12 +1,6 @@
-import { Divider, Accordion, AccordionSummary, Typography, AccordionDetails, IconButton } from '@material-ui/core';
-import Table from '@material-ui/core/Table';
-import TableBody from '@material-ui/core/TableBody';
-import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
+import { Divider, Accordion, AccordionSummary, Typography, AccordionDetails, Button } from '@material-ui/core';
 import React, { useState, useContext, useEffect } from 'react';
-import { Header, Loader } from '../../components';
+import { Header, Loader, MealTable } from '../../components';
 import { getMeals, deleteMeal, editMeal } from '../../server';
 import UserContext from '../../UserContext';
 import './Dashboard.scss';
@@ -27,7 +21,7 @@ function Dashboard(props) {
         try {
             const resp = await getMeals();
             Object.keys(resp.data).forEach(date => {
-                resp.data[date].totalCalories = resp.data[date].reduce((acc, meal) => meal.calories + acc, 0);
+                resp.data[date].totalCalories = resp.data[date].reduce((acc, meal) => parseInt(meal.calories) + acc, 0);
             });
 
             setstate({ ...state, meals: resp.data });
@@ -44,7 +38,7 @@ function Dashboard(props) {
         try {
             const resp = await deleteMeal(mealID);
             Object.keys(resp.data).forEach(date => {
-                resp.data[date].totalCalories = resp.data[date].reduce((acc, meal) => meal.calories + acc, 0);
+                resp.data[date].totalCalories = resp.data[date].reduce((acc, meal) => parseInt(meal.calories) + acc, 0);
             });
 
             enqueueSnackbar && enqueueSnackbar("Meal deleted successfully", {
@@ -59,17 +53,14 @@ function Dashboard(props) {
         setisLoading(false);
     };
 
-    const editMealByID = async (mealID) => {
-        setisLoading(true);
+    const editMealByID = async (mealID, payload) => {
         try {
-            const resp = await editMeal(mealID, {
-
-            });
+            const resp = await editMeal(mealID, payload);
             Object.keys(resp.data).forEach(date => {
-                resp.data[date].totalCalories = resp.data[date].reduce((acc, meal) => meal.calories + acc, 0);
+                resp.data[date].totalCalories = resp.data[date].reduce((acc, meal) => parseInt(meal.calories) + acc, 0);
             });
 
-            enqueueSnackbar && enqueueSnackbar("Meal deleted successfully", {
+            enqueueSnackbar && enqueueSnackbar("Meal updated successfully", {
                 variant: "success"
             });
             setstate({ ...state, meals: resp.data });
@@ -78,7 +69,6 @@ function Dashboard(props) {
                 variant: "error"
             });
         }
-        setisLoading(false);
     };
 
 
@@ -89,6 +79,8 @@ function Dashboard(props) {
             <h1>Welcome, {name}</h1>
             <Divider style={{ width: '80%', marginBottom: '2em' }} />
 
+            <Button style={{ marginBottom: '2em' }} color="primary" variant="contained" size="large" startIcon={<i className="material-icons">add</i>}>Add a Meal</Button>
+
             {
                 Object.keys(state.meals).map(date =>
                     <Accordion key={date} className={`date-accordion ${state.meals[date].totalCalories < 2000 ? 'healthy-acc' : ''}`}>
@@ -98,38 +90,7 @@ function Dashboard(props) {
                             <Typography color="primary">{date} (Total Calories: {state.meals[date].totalCalories})</Typography>
                         </AccordionSummary>
                         <AccordionDetails>
-                            <TableContainer>
-                                <Table>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell>Time</TableCell>
-                                            <TableCell>Meal Name</TableCell>
-                                            <TableCell>Calories</TableCell>
-                                            <TableCell>Edit</TableCell>
-                                            <TableCell>Delete</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    <TableBody>
-                                        {state.meals[date].map((row) => (
-                                            <TableRow key={row.id}>
-                                                <TableCell>{new Date(row.date.replace('T', ' ')).toLocaleTimeString()}</TableCell>
-                                                <TableCell>{row.mealName}</TableCell>
-                                                <TableCell>{row.calories}</TableCell>
-                                                <TableCell>
-                                                    <IconButton size="small" color="primary" onClick={e => editMealByID(row.id)}>
-                                                        <i className="material-icons">edit</i>
-                                                    </IconButton>
-                                                </TableCell>
-                                                <TableCell>
-                                                    <IconButton size="small" color="primary" onClick={e => deleteMealByID(row.id)}>
-                                                        <i className="material-icons">cancel</i>
-                                                    </IconButton>
-                                                </TableCell>
-                                            </TableRow>
-                                        ))}
-                                    </TableBody>
-                                </Table>
-                            </TableContainer>
+                            <MealTable key={date} rows={state.meals[date]} deleteMealByID={deleteMealByID} editMealByID={editMealByID} />
                         </AccordionDetails>
                     </Accordion>
                 )

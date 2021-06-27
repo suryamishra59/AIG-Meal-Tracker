@@ -55,7 +55,7 @@ class Meal {
         await writeFile('./models/meal/meal.json', JSON.stringify(mealData));
         const filteredMeals = JSON.parse(JSON.stringify(mealData));
         filteredMeals.forEach(meal => meal.onlyDate = meal.date.split('T')[0]);
-        const resp = _.groupBy(filterMeals, "onlyDate");
+        const resp = _.groupBy(filteredMeals, "onlyDate");
         return getResponseObject(200, "Meal updated succesfully", resp);
     }
 

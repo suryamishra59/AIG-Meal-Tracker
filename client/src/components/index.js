@@ -6,3 +6,6 @@ export * from "./loader/Loader";
 
 export { default as Header } from "./header/Header";
 export * from "./header/Header";
+
+export { default as MealTable } from "./mealtable/MealTable";
+export * from "./mealtable/MealTable";

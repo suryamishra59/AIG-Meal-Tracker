@@ -76,7 +76,9 @@ class App extends React.Component {
                 const originalRequest = error.config;
                 if (!error.response || error.response.status !== 401) throw error;
 
-                console.log("401 Unauthorized: Moving Forward to refresh the session");
+                // console.log("401 Unauthorized: Moving Forward to refresh the session");
+                console.log("Session Expired");
+                this.logout();
 
                 // try {
                 //     if (originalRequest.url === REFRESH_TOKEN_API) throw new Error("Session Expired");
