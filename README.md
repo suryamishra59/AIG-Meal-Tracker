@@ -1,7 +1,7 @@
 # AIG-Meal-Tracker
 This project allows a user to track his calories consumtion whilst tracking the meals. A user can keep adding his meals multiple times a day with calories consumed. Its a **PWA** app which can be locally installed on the user machine without downloading it as an standalone application.
 
-##Environment
+## Environment
 
 - Backend: (Run using `npm start`)
 	- node: 14.17.1
