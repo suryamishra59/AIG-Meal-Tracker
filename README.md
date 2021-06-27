@@ -26,7 +26,7 @@ The frontend is essentially divided into 2 parts, **components** and **container
 
 Other external resources used by the frontend app includes MaterialUI, Material-icons, 2 external fonts served by CDN in index.html
 
-#####SERVER
+##### SERVER
 The backend uses NodeJS and Express to serve the APIs and handling the storage of the data.
 The server is divided into 2 parts, **models**, **controllers**.
 - **index.js**:  The root controller of the application and other related configuration are based inside in this file. All the environment variables are initialized into process as the app is booted up.
@@ -36,7 +36,7 @@ The server is divided into 2 parts, **models**, **controllers**.
 - **util.js and constant.js**:  The utility methods goes into the util file. Other constants like API endpoints are stored in constant.js.
 - **.env**: Holds the environment variables like JWT secret and are injected in when the app is booted.
 
-##Design Decisions
+## Design Decisions
 Given the complexity of the project, relatively lightweight languages have been choosen. 
 
 - **Modularity: **The code is **modularized** in a way to handle further enhancements. All the independent components must go in components dir. Similarly for each module addition, a seperate model and controller should be created.
