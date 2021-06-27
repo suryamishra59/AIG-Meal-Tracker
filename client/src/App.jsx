@@ -15,7 +15,7 @@ class App extends React.Component {
         super();
 
         this.state = {
-            isAuthenticated: false,
+            isAuthenticated: window.localStorage.getItem(LS_USER_OBJECT_KEY) ? Object.keys(JSON.parse(window.localStorage.getItem(LS_USER_OBJECT_KEY))).length > 1 : false,
             isMobile: window.matchMedia("(max-width: 768px)").matches,
             updateContext: this.updateContext,
             logout: this.logout
@@ -76,7 +76,9 @@ class App extends React.Component {
                 const originalRequest = error.config;
                 if (!error.response || error.response.status !== 401) throw error;
 
-                console.log("401 Unauthorized: Moving Forward to refresh the session");
+                // console.log("401 Unauthorized: Moving Forward to refresh the session");
+                console.log("Session Expired");
+                this.logout();
 
                 // try {
                 //     if (originalRequest.url === REFRESH_TOKEN_API) throw new Error("Session Expired");

@@ -17,6 +17,7 @@ function SignUp(props) {
     const { enqueueSnackbar } = useContext(UserContext);
 
     const registerUser = async e => {
+        e.preventDefault();
         setisLoading(true);
         try {
             const payload = {
@@ -45,15 +46,15 @@ function SignUp(props) {
                 <div className="flex flex-h-centered flex-c-flow m-top-1 main-wrapper">
                     <h1>Welcome</h1>
                     <Divider style={{ margin: '15px 0' }} />
-                    <form>
+                    <form onSubmit={registerUser}>
                         <div className="flex flex-h-centered flex-c-flow" style={{ margin: '3em 0' }}>
                             <div className="flex flex-h-centered flex-c-flow" style={{ margin: '0.5em 0' }}>
                                 <label style={{ fontSize: '20px', fontWeight: 400 }} htmlFor="signup_name">Name</label>
                                 <InputBase value={state.name} onChange={e => setstate({ ...state, name: e.target.value })} placeholder="First Name" name="name" required type="text" id="signup_name" className="m-top-1 register-fields" />
                             </div>
                             <div className="flex flex-h-centered flex-c-flow" style={{ margin: '0.5em 0' }}>
-                                <label style={{ fontSize: '20px', fontWeight: 400 }} htmlFor="signup_email">Email</label>
-                                <InputBase value={state.emailID} onChange={e => setstate({ ...state, emailID: e.target.value })} placeholder="Email" name="email" required type="email" autoFocus id="signup_email" className="m-top-1 register-fields" />
+                                <label style={{ fontSize: '20px', fontWeight: 400 }} htmlFor="signup_email">Username</label>
+                                <InputBase value={state.emailID} onChange={e => setstate({ ...state, emailID: e.target.value })} placeholder="Username" name="email" required autoFocus id="signup_email" className="m-top-1 register-fields" />
                             </div>
                             <div className="flex flex-h-centered flex-c-flow" style={{ margin: '0.5em 0' }}>
                                 <label style={{ fontSize: '20px', fontWeight: 400 }} htmlFor="signup_pwd">Password</label>
@@ -64,7 +65,7 @@ function SignUp(props) {
                                 <InputBase value={state.confirmPassword} onChange={e => setstate({ ...state, confirmPassword: e.target.value })} placeholder="Confirm Password" name="conPassword" required type="password" id="signup_conpwd" className="m-top-1 register-fields" />
                             </div>
 
-                            <ButtonBase onClick={registerUser} focusRipple disabled={!state.emailID || !state.name || !state.password || state.password !== state.confirmPassword || state.isLoading} className="btn-nxt primary">
+                            <ButtonBase type="submit" focusRipple disabled={!state.emailID || !state.name || !state.password || state.password !== state.confirmPassword || state.isLoading} className="btn-nxt primary">
                                 Submit
                             </ButtonBase>
                         </div>
