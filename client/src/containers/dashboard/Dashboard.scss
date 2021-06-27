@@ -21,6 +21,14 @@
                 color: rgb(1, 73, 1) !important;
             }
         }
+
+        &.not-healthy-acc {
+            background-color: rgb(252, 189, 189);
+
+            * {
+                color: darkred;
+            }
+        }
     }
 }
 

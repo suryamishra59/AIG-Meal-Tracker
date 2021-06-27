@@ -136,7 +136,7 @@ function Dashboard(props) {
 
             {
                 Object.keys(state.meals).map(date =>
-                    <Accordion key={date} className={`date-accordion ${state.meals[date].totalCalories < 2000 ? 'healthy-acc' : ''}`}>
+                    <Accordion key={date} className={`date-accordion ${state.meals[date].totalCalories < 2000 ? 'healthy-acc' : 'not-healthy-acc'}`}>
                         <AccordionSummary
                             expandIcon={<i className="material-icons">expand_more</i>}
                         >
