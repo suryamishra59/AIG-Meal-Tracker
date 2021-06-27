@@ -18,9 +18,10 @@ const Header = (props) => {
         <>
             <AppBar position="static" color="transparent" elevation={0}>
                 <Toolbar>
-                    <IconButton edge="start" color="inherit" aria-label="menu" onClick={e => toggleDrawer(true)}>
+                    {/* <IconButton edge="start" color="inherit" aria-label="menu" onClick={e => toggleDrawer(true)}>
                         <i className="material-icons">menu</i>
-                    </IconButton>
+                    </IconButton> */}
+                    <img src={logo} style={{ height: '50px', marginRight: '1.5em' }} alt="logo" />
                     <Typography variant="h6" style={{ fontWeight: 300, margin: 0, cursor: 'pointer' }} color="secondary" onClick={e => props.history.push('/portal')}>{props.heading}</Typography>
                     <Button style={{ marginLeft: 'auto', marginRight: '10px' }} color="secondary" onClick={logout}>LOGOUT</Button>
                 </Toolbar>

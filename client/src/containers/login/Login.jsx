@@ -27,6 +27,7 @@ function Login(props) {
                 password: state.password
             });
             localStorage.setItem(LS_USER_OBJECT_KEY, JSON.stringify(resp.data));
+            localStorage.setItem("token", resp.data.accessToken);
             updateContext();
             props.history.push('/portal/dashboard');
         } catch (error) {

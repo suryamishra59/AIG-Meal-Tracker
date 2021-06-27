@@ -5,7 +5,7 @@ module.exports = {
     API_BASE_URL: API_BASE_URL,
     API_SIGNIN: API_BASE_URL + '/user/signin',
     API_USER: API_BASE_URL + '/user',
-
+    API_MEAL: API_BASE_URL + '/meal',
     
     LS_USER_OBJECT_KEY: 'user_info'
 };

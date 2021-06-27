@@ -15,7 +15,7 @@ class App extends React.Component {
         super();
 
         this.state = {
-            isAuthenticated: false,
+            isAuthenticated: window.localStorage.getItem(LS_USER_OBJECT_KEY) ? Object.keys(JSON.parse(window.localStorage.getItem(LS_USER_OBJECT_KEY))).length > 1 : false,
             isMobile: window.matchMedia("(max-width: 768px)").matches,
             updateContext: this.updateContext,
             logout: this.logout
