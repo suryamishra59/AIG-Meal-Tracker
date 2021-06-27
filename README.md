@@ -7,10 +7,12 @@ This project allows a user to track his calories consumtion whilst tracking the 
 	- node: 14.17.1
 	- express: 4.17.1
 	- DB: File IO
+    - To run `cd ./server/` > `npm i` > `npm start`
 - Frontend:  (Run using `npm start`)
 	- ReactJS: 16.13.1
 	- CRA: 4.0.1
 	- Material UI: 4.11.0
+    - To run `cd ./client/` > `npm i` > `npm start`
 
 ## Project Stucture
 The project structure is divided into two parts viz. **client** and **server**. Client holds the frontend project build on ReactJS and the server exposes the APIs using Express to communicate with the frontend.
