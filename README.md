@@ -41,7 +41,7 @@ The server is divided into 2 parts, **models**, **controllers**.
 ## Design Decisions
 Given the complexity of the project, relatively lightweight languages have been choosen. 
 
-- **Modularity: **The code is **modularized** in a way to handle further enhancements. All the independent components must go in components dir. Similarly for each module addition, a seperate model and controller should be created.
+- **Modularity:** The code is **modularized** in a way to handle further enhancements. All the independent components must go in components dir. Similarly for each module addition, a seperate model and controller should be created.
 - **Security**:
 	- As specified above, JWT is been implemented for securing the required APIs. 
 	- The `.env` files contains the required key value pairs. (**NOTE: To make this project run without any setup, the env file will be checked in the github, which is NOT recommended**)
